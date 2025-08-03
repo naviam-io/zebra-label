@@ -5,16 +5,17 @@ plugins {
     distribution
 }
 
+val mavenUserName: String by project
+val mavenPassword: String by project
 
+group = "io.naviam"
+version = "1.3.0"
 
-group = "io.sharptree"
-version = "1.2.0"
-
-val vendor = "Sharptree"
+val vendor = "Naviam"
 val product = "zebra-label"
 val distro = "zebra-label"
 
-project.version = "1.2.1"
+project.version = "1.3.0"
 
 tasks.compileJava {
     sourceCompatibility = "1.8"
@@ -41,15 +42,16 @@ distributions {
 
     main {
         contents {
+            println("here ${layout.buildDirectory.asFile.get().path}")
             into("applications/maximo/lib") {
-                from("$buildDir/libs/${product.toLowerCase()}.jar")
+                from("${layout.buildDirectory.asFile.get().path}/libs/${product.lowercase()}.jar")
             }
             into("applications/maximo/lib") {
                 from(distribution.filter { it.name.startsWith("guava") })
             }
 
             into("applications/maximo/maximouiweb/webmodule/WEB-INF/lib") {
-                from("$buildDir/libs/${product.toLowerCase()}-web.jar")
+                from("${layout.buildDirectory.asFile.get().path}/libs/${product.lowercase()}-web.jar")
             }
 
             into("tools/maximo/classes") {
@@ -139,7 +141,7 @@ tasks.register<Tar>("retar"){
 tasks.getByName("unzip").dependsOn("assembleDist")
 
 tasks.jar {
-    archiveFileName.set("${product.toLowerCase()}.jar")
+    archiveFileName.set("${product.lowercase()}.jar")
 }
 
 tasks.getByName("distTar").dependsOn("jar", "jar-web")
@@ -147,8 +149,8 @@ tasks.getByName("distZip").dependsOn("jar", "jar-web")
 
 
 tasks.register<Jar>("jar-web") {
-    archiveFileName.set("${product.toLowerCase()}-web.jar")
-    include("io/sharptree/maximo/webclient/**")
+    archiveFileName.set("${product.lowercase()}-web.jar")
+    include("io/naviam/maximo/webclient/**")
 
     from(project.the<SourceSetContainer>()["main"].output)
 }
@@ -170,9 +172,9 @@ tasks.jar {
         )
     }
 
-    exclude("io/sharptree/maximo/webclient/**")
+    exclude("io/naviam/maximo/webclient/**")
 
-    archiveBaseName.set(product.toLowerCase())
+    archiveBaseName.set(product.lowercase())
 
 }
 
@@ -195,14 +197,20 @@ dependencies {
      * webclient - classes from the maximouiweb/WEB-INF/classes folder
      * tools - classes from the [SMP_HOME]/maximo/tools/maximo/classes folder
      *
+     * These classes jars are proprietary to IBM and hosted on Sharptree's private Archiva server.
      *
      * If you are not a Sharptree developer, but have access to a Maximo instance you can zip the required into jar files and
      * places them in the libs directory on this project.  The comment the non-local dependencies.
      */
     compileOnly(fileTree( "libs") { listOf("*.jar") })
-    
-    compileOnly("com.google.code.gson:gson:2.2.4")
 
+    /*
+     * Comment out or remove the following lines if using local Maximo jar dependencies.
+     */
+    compileOnly("com.ibm.maximo:asset-management:7.6.1.2")
+    compileOnly("com.ibm.maximo:webclient:7.6.1.2")
+    compileOnly("com.ibm.maximo:commonweb:7.6.1.2")
+    compileOnly("com.ibm.maximo:tools:7.6.1.2")
     compileOnly("com.google.code.gson:gson:2.2.4")
 
     /**

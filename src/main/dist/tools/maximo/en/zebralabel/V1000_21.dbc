@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<!--suppress CheckValidXmlInScriptTagBody -->
+<script author="Jason VenHuizen" scriptname="V1000_21">
+    <description>Add receipts site only option to print labels without a storeroom.</description>
+    <statements>
+        <add_property name="sharptree.zebralabel.receiptSiteOnly" description="Allow printing receipt without a storeroom" maxtype="YORN" secure_level="public"/>
+    </statements>
+</script>

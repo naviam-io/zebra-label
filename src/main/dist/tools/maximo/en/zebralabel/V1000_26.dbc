@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<!--suppress CheckValidXmlInScriptTagBody -->
+<script author="Jason VenHuizen" scriptname="V1000_26">
+    <description>Add objects for agent remote printing</description>
+    <statements>
+        <define_table object="NVMPRINTAGENT" description="Naviam print agent registration" service="STLABEL" classname="io.naviam.maximo.app.label.PrintAgentSet" type="system">
+            <attrdef attribute="CREATEDATE" title="Create Date" remarks="The date that the registration was created" maxtype="DATETIME" required="true"/>
+            <attrdef attribute="LASTPINGDATE" title="Last Ping Date" remarks="The date that the registered agent was last pinged" maxtype="DATETIME" required="true"/>
+        </define_table>
+        
+
+        <define_table object="NVMPRINTQUEUE" description="Naviam print agent queue" service="STLABEL" classname="io.naviam.maximo.app.label.PrintQueueSet" type="system">
+            <attrdef attribute="ADDRESS" title="Address" remarks="Host name or IP address of the printer." sameasobject="STPRINTER" sameasattribute="ADDRESS" required="true"/>
+            <attrdef attribute="PORT" title="Port" remarks="The port number the printer is listening on, 0 to 65535" sameasobject="STPRINTER" sameasattribute="PORT" required="true"/>
+            <attrdef attribute="ZPL" title="ZPL" remarks="The ZPL for the label." sameasobject="STLABEL" sameasattribute="ZPL"/>
+            <attrdef attribute="TIMEOUT" title="Timeout" remarks="The number of seconds to wait before timing out the print job." maxtype="INTEGER"/>
+            <attrdef attribute="NVMPRINTAGENTID" title="Agent Id" remarks="The Agent that the label print is queued for." maxtype="BIGINT" />
+        </define_table>
+
+        <add_property name="naviam.zebra.pingInterval" description="The interval to check that a print agent is active in seconds." maxtype="INTEGER" secure_level="public" value="10" />
+        <add_property name="naviam.zebra.pollInterval" description="The interval to check for new print events in seconds." maxtype="INTEGER" secure_level="public" value="5" />
+
+        <freeform description="Create the Naviam logger and Zebra sub logger.">
+            <sql>
+                INSERT INTO maxlogger (maxloggerid, logger, loglevel, logkey, active, internal)
+                SELECT maxloggerseq.nextval, 'zebra', 'ERROR', 'log4j.logger.naviam', 1, 0 FROM dummy_table WHERE NOT EXISTS (SELECT 1 FROM MAXLOGGER WHERE logkey = 'log4j.logger.naviam');
+
+                INSERT INTO maxlogger (maxloggerid, logger, loglevel, logkey, parentloggerid,  active, internal)
+                SELECT maxloggerseq.nextval, 'label', 'ERROR', 'log4j.logger.maximo.naviam.zebra', (SELECT MAXLOGGERID FROM MAXLOGGER WHERE logkey = 'log4j.logger.maximo.naviam'), 1, 0 FROM dummy_table WHERE NOT EXISTS (SELECT 1 FROM MAXLOGGER WHERE logkey = 'log4j.logger.maximo.naviam.zebra');
+            </sql>
+        </freeform>
+    </statements>
+
+
+</script>

@@ -13,8 +13,11 @@
         <drop_table object="STPRINTER"/>
         <drop_table object="STPRINTLABEL"/>
 
-
         <drop_property name="sharptree.zebralabel.maxcount"/>
+        <drop_property name="naviam.zebralabel.maxcount"/>
+        <drop_property name="sharptree.zebralabel.receiptSiteOnly"/>
+        <drop_property name="naviam.zebralabel.receiptSiteOnly"/>
+
         <drop_app app="STLABEL" />
 
         <!-- Create presentation entry for the Label Configuration application -->
@@ -33,7 +36,9 @@
                 delete sigoption where optionname = 'ZEBRALABELPRINT';
                 delete applicationauth where optionname = 'ZEBRALABELPRINT';
                 delete maxlogger where logkey LIKE 'log4j.logger.maximo.sharptree.label%';
+                delete maxlogger where logkey LIKE 'log4j.logger.maximo.naviam.label%';
                 delete maxlogger where logkey = 'log4j.logger.maximo.sharptree' AND NOT EXISTS (SELECT 1 FROM maxlogger WHERE logkey LIKE 'log4j.logger.maximo.sharptree%'  AND logkey != 'log4j.logger.maximo.sharptree' );
+                delete maxlogger where logkey = 'log4j.logger.maximo.sharptree' AND NOT EXISTS (SELECT 1 FROM maxlogger WHERE logkey LIKE 'log4j.logger.maximo.naviam%'  AND logkey != 'log4j.logger.maximo.naviam' );
                 DELETE MAXOBJECT m WHERE OBJECTNAME  = 'STPRINTLABEL';
                 DELETE MAXOBJECTCFG m WHERE OBJECTNAME  = 'STPRINTLABEL';
                 DELETE MAXATTRIBUTE m WHERE OBJECTNAME  = 'STPRINTLABEL';

@@ -9,7 +9,7 @@
         <targetname>init</targetname>
         <content>
             <update>
-                <property name="maximo.businessobjectsclasspath" value="lib/zebra-label.jar lib/guava-31.0.1-jre.jar" />
+                <property name="maximo.businessobjectsclasspath" value="lib/zebra-label.jar lib/guava-31.1-jre.jar" />
             </update>
         </content>
     </targetupdate>

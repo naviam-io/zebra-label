@@ -11,8 +11,8 @@ To install the Maximo Zebra Printing extension for Maximo 7.6.1.x perform the fo
 5. Run the `updatedb.sh` (unix) or `updatedb.bat` (windows).
 6. Rebuild and redeploy the Maximo EAR file.
 
-## Maximo Application Suite 8 (MAS8)
-To deploy to MAS8 access the Suite Navigator as an administrative user and select the Administration icon from the toolbar menu.
+## Maximo Application Suite (MAS)
+To deploy to MAS access the Suite Navigator as an administrative user and select the Administration icon from the toolbar menu.
 
 ![Administrator Menu](images/mas-deploy-admin.png)
 
@@ -36,7 +36,7 @@ If checked, uncheck the `System managed` switch for the `Customization` section.
 
 ![System mananged switch](images/mas-deploy-customization-sys-manage.png)
 
-In the `File Address` field enter the URL for the `zebra-label-x.y.z.zip` archive.  This can be hosted on a self-hosted server or from the GitHub release URL, such as `https://github.com/sharptree/zebra-label/releases/download/public/1.1.0/zebra-label-1.1.0.zip`.  If using a self-hosted site, optional credentials can be provided by entering the username and password in the following format.
+In the `File Address` field enter the URL for the `zebra-label-x.y.z.zip` archive.  This can be hosted on a self-hosted server or from the GitHub release URL, such as `https://github.com/naviam-io/zebra-label/releases/download/public/1.3.0/zebra-label-1.3.0.zip`.  If using a self-hosted site, optional credentials can be provided by entering the username and password in the following format.
 ```properties
 user=your user name
 password=your password
@@ -54,12 +54,12 @@ Finally click the `Activate` button to activate the changes. This will trigger a
 
 ![Activate](images/mas-deploy-activate-changes.png)
 
-> The Maximo Zebra Printing extension is a customization for MAS8 and is deployed as part of the build and deployment pipeline.  For details on customizations and MAS8 see the IBM documentation in the following links: 
+> The Maximo Zebra Printing extension is a customization for MAS and is deployed as part of the build and deployment pipeline.  For details on customizations and MAS see the IBM documentation in the following links: 
 > 
->[https://www.ibm.com/docs/en/maximo-manage/8.3.0?topic=application-adding-customizations](https://www.ibm.com/docs/en/maximo-manage/8.3.0?topic=application-adding-customizations) 
+>[https://www.ibm.com/docs/en/masv-and-l/maximo-manage/cd?topic=developing-customizing](https://www.ibm.com/docs/en/masv-and-l/maximo-manage/cd?topic=developing-customizing) 
 >[https://ibm-mas-manage.github.io/playbook/upgrade/customizationprocess](https://ibm-mas-manage.github.io/playbook/upgrade/customizationprocess) 
 # Uninstall
-Sharptree believes that trying new things should be as painless as possible, so we also provide scripts to uninstall the Zebra Printing extension and make it as simple as the installation.
+Naviam believes that trying new things should be as painless as possible, so we also provide scripts to uninstall the Zebra Printing extension and make it as simple as the installation.
 
 To uninstall the Maximo Zebra Printing extension perform the following steps.
 1. Stop the Maximo application server in WebSphere.
@@ -147,14 +147,14 @@ When used with the INVBALANCES record for item number *11453* the following labe
 ![Simple Inventory Balances Label](images/invbalances_2x4.png)
 
 >
->Labelary provides an excellent tool for creating and editing ZPL labels here: [http://labelary.com/viewer.html](http://labelary.com/viewer.html) .
+>Labelary provides an excellent tool for creating and editing ZPL labels here: [https://labelary.com/viewer.html](https://labelary.com/viewer.html) .
 
 # Print Labels
 Once labels and printers have been configured, printing the labels is simple. There are three applications that support barcode printing, Inventory, Item Master, and Receiving. The installation adds a printer icon to the Inventory Balances table in Inventory, to the Storerooms > Storeroom Information table in Item Master and to the Material Receipts table in the Receiving application.
 
 When a user clicks the print button, if a single printer and label combination is available for the current Storeroom (Location in Inventory and Item Master or To Storeroom in Receiving), then the label is printed directly without further user prompting.  If more than one printer or label is available for the current Storeroom location then a dialog is presented allowing the user to select the desired printer and label.  If a printer or label has been marked as `Default` then that printer is selected when the dialog opens.  
 
-The user can optionally select to print more than one label by entering  a `Count` value.  The maximum number of labels that can be printed is 10 by default and can be specified by the `sharptree.zebralabel.maxcount` System Property.
+The user can optionally select to print more than one label by entering  a `Count` value.  The maximum number of labels that can be printed is 10 by default and can be specified by the `naviam.zebralabel.maxcount` System Property.
 
 ![Print Dialog](images/print-label-dialog.png)
 

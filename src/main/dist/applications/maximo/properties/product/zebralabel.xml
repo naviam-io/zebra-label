@@ -5,11 +5,11 @@
         <major>1</major>
         <minor>0</minor>
         <modlevel>0</modlevel>
-        <patch>20</patch>
-        <build>20250506</build>
+        <patch>256</patch>
+        <build>20250726</build>
     </version>
     <dbmaxvarname>ZEBRALABEL</dbmaxvarname>
     <dbscripts>zebralabel</dbscripts>
-    <dbversion>V1000-20</dbversion>
+    <dbversion>V1000-26</dbversion>
     <lastdbversion>V1000-00</lastdbversion>
 </product>

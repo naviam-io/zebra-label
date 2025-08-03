@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<!--suppress CheckValidXmlInScriptTagBody -->
+<script author="Jason VenHuizen" scriptname="V1000_23">
+    <description>Migrate from Sharptree to Naviam.</description>
+    <statements>
+        <freeform description="Migrate messages from Sharptree to Naviam">
+            <sql>
+                delete from maxmessages where msgid like 'STXAB%' and msggroup = 'sharptree';
+                delete from maxdataprefix where prefix = 'STXAB';
+            </sql>
+        </freeform>
+        <freeform description="Add the Zebra Label Message Prefix">
+            <sql>
+                insert into maxdataprefix (prefix, product, maxdataprefixid)
+                select 'NAVZL', 'Naviam Zebra Label', maxdataprefixseq.nextval from dummy_table where not exists
+                (select 1 from maxdataprefix where prefix = 'NAVZL');
+            </sql>
+        </freeform>
+        <freeform description="Update properties to naviam prefix">
+            <sql>
+
+                update maxprop set propname = 'naviam.zebralabel.maxcount' where propname = 'sharptree.zebralabel.maxcount';
+                update maxpropvalue set propname = 'naviam.zebralabel.maxcount' where propname = 'sharptree.zebralabel.maxcount';
+
+                update maxprop set propname = 'naviam.zebralabel.receiptSiteOnly' where propname = 'sharptree.zebralabel.receiptSiteOnly';
+                update maxpropvalue set propname = 'naviam.zebralabel.receiptSiteOnly' where propname = 'sharptree.zebralabel.receiptSiteOnly';
+
+                <!-- Update the default value for naviam.zebralabel.receiptSiteOnly to false if it is null -->
+                update maxpropvalue set propvalue = 'false' where propname = 'naviam.zebralabel.receiptSiteOnly' and propvalue is null;
+            </sql>
+        </freeform>
+        <freeform description="Update class registrations from the sharptree package to naviam.">
+            <sql target="not_sqlserver">
+                update maxobject set classname = 'io.naviam' ||  substr(classname, 13) where classname like 'io.sharptree.maximo.app.label%';
+                update maxobjectcfg set classname = 'io.naviam' ||  substr(classname, 13) where classname like 'io.sharptree.maximo.app.label%';
+                update maxattribute set classname = 'io.naviam' ||  substr(classname, 13) where classname like 'io.sharptree.maximo.app.label%';
+                update maxattributecfg set classname = 'io.naviam' ||  substr(classname, 13)  where classname like 'io.sharptree.maximo.app.label%';
+                update maxservice set classname = 'io.naviam' ||  substr(classname, 13) where classname like 'io.sharptree.maximo.app.label%';
+            </sql>
+            <sql target="sqlserver">
+                update maxobject set classname = 'io.naviam' + substring(classname, 13)  where classname like 'io.sharptree.maximo.app.label%';
+                update maxobjectcfg set classname = 'io.naviam' + substring(classname, 13)  where classname like 'io.sharptree.maximo.app.label%';
+                update maxattribute set classname = 'io.naviam' +  substring(classname, 13)  where classname like 'io.sharptree.maximo.app.label%';
+                update maxattributecfg set classname = 'io.naviam' +  substring(classname, 13)  where classname like 'io.sharptree.maximo.app.label%';
+                update maxservice set classname = 'io.naviam' + substring(classname, 13)  where classname like 'io.sharptree.maximo.app.label%';
+            </sql>
+        </freeform>
+    </statements>
+</script>

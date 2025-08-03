@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<updatescript version="7.1.0.0">
+	<systemlib apptype="webclient" id="library">
+		<modify control="zebralabelprint">
+			<set property="beanclass" value="io.naviam.maximo.webclient.beans.zebralabel.PrintLabelBean"/>
+		</modify>
+	</systemlib>
+</updatescript>

@@ -4,7 +4,7 @@
 <script author="Jason VenHuizen" scriptname="V1000_02">
     <description>Add Barcode Printing configurations.</description>
     <statements>
-        <add_service servicename="STLABEL" description="Sharptree Label Management" classname="io.sharptree.maximo.app.label.LabelService" />
+        <add_service servicename="STLABEL" description="Sharptree Label Management" classname="io.naviam.maximo.app.label.LabelService" />
 
         <specify_aln_domain domainid="LABELMEDIA" maxtype="ALN" length="10" description="Zebra Label Media">
             <alnvalueinfo value="2x1" description='2" x 1"'/>
@@ -25,34 +25,34 @@
             <alnvalueinfo value="INVENTORY" description="Inventory"/>
         </specify_aln_domain>
 
-        <define_table object="STLABEL" description="Sharptree Label Definition" service="STLABEL" classname="io.sharptree.maximo.app.label.LabelSet" type="system" mainobject="true"  primarykey="label" >
+        <define_table object="STLABEL" description="Sharptree Label Definition" service="STLABEL" classname="io.naviam.maximo.app.label.LabelSet" type="system" mainobject="true" primarykey="label" >
             <attrdef attribute="LABEL" title="Label" remarks="A unique name for the label." length="20"  maxtype="UPPER" searchtype="WILDCARD"/>
             <attrdef attribute="DESCRIPTION" title="Description" remarks="The description for the label." maxtype="ALN" length="50" searchtype="WILDCARD"/>
-            <attrdef attribute="ZPL" title="ZPL" remarks="The ZPL for the label." maxtype="CLOB" classname="io.sharptree.maximo.app.label.FldZPL"/>
-            <attrdef attribute="MEDIA" title="Media" remarks="The size of the label" domain="LABELMEDIA" maxtype="ALN" length="10" searchtype="WILDCARD" classname="io.sharptree.maximo.app.label.FldMedia"/>
-            <attrdef attribute="ISDEFAULT" title="Default" remarks="Is the default label for the media type?" maxtype="YORN" classname="io.sharptree.maximo.app.label.FldDefaultLabel" defaultvalue="0" required="true"/>
+            <attrdef attribute="ZPL" title="ZPL" remarks="The ZPL for the label." maxtype="CLOB" classname="io.naviam.maximo.app.label.FldZPL"/>
+            <attrdef attribute="MEDIA" title="Media" remarks="The size of the label" domain="LABELMEDIA" maxtype="ALN" length="10" searchtype="WILDCARD" classname="io.naviam.maximo.app.label.FldMedia"/>
+            <attrdef attribute="ISDEFAULT" title="Default" remarks="Is the default label for the media type?" maxtype="YORN" classname="io.naviam.maximo.app.label.FldDefaultLabel" defaultvalue="0" required="true"/>
             <attrdef attribute="USEWITH" title="Use With" remarks="The Maximo object name that the label can be used with." sameasobject="MAXOBJECT" sameasattribute="OBJECTNAME" searchtype="WILDCARD" domain="LABELUSEWITH" defaultvalue="INVBALANCES"/>
         </define_table>
 
-        <define_table object="STPRINTER" description="Sharptree Label Printers" service="STLABEL" classname="io.sharptree.maximo.app.label.PrinterSet" type="system"  primarykey="PRINTER">
+        <define_table object="STPRINTER" description="Sharptree Label Printers" service="STLABEL" classname="io.naviam.maximo.app.label.PrinterSet" type="system" primarykey="PRINTER">
             <attrdef attribute="ADDRESS" title="Address" remarks="Host name or IP address of the printer." maxtype="ALN" length="50" classname="io.sharptree.maximo.app.label.FldAddress" searchtype="WILDCARD"/>
-            <attrdef attribute="ISDEFAULT" title="Default" remarks="Default printer for the specified location?" maxtype="YORN" classname="io.sharptree.maximo.app.label.FldDefaultPrinter" defaultvalue="0" required="true"/>
+            <attrdef attribute="ISDEFAULT" title="Default" remarks="Default printer for the specified location?" maxtype="YORN" classname="io.naviam.maximo.app.label.FldDefaultPrinter" defaultvalue="0" required="true"/>
             <attrdef attribute="DESCRIPTION" title="Description" remarks="The description of the printer." maxtype="ALN" length="50"/>
-            <attrdef attribute="LOCATION" title="Storeroom" remarks="The storeroom where the printer is located." sameasobject="LOCATIONS" sameasattribute="LOCATION" searchtype="WILDCARD" classname="io.sharptree.maximo.app.label.FldLocation"/>
+            <attrdef attribute="LOCATION" title="Storeroom" remarks="The storeroom where the printer is located." sameasobject="LOCATIONS" sameasattribute="LOCATION" searchtype="WILDCARD" classname="io.naviam.maximo.app.label.FldLocation"/>
             <attrdef attribute="MEDIA" title="Media" remarks="The size of the label" domain="LABELMEDIA" maxtype="ALN" length="10" />
             <attrdef attribute="ORGID" title="Organization" remarks="The location organization Id" sameasobject="ORGANIZATION" sameasattribute="ORGID"  searchtype="WILDCARD" classname="psdi.app.site.FldOrganizationItemSetId"/>
-            <attrdef attribute="PORT" title="Port" remarks="The port number the printer is listening on, 0 to 65535" maxtype="INTEGER" classname="io.sharptree.maximo.app.label.FldPort" defaultvalue="9100" />
+            <attrdef attribute="PORT" title="Port" remarks="The port number the printer is listening on, 0 to 65535" maxtype="INTEGER" classname="io.naviam.maximo.app.label.FldPort" defaultvalue="9100" />
             <attrdef attribute="PRINTER" title="Printer" remarks="The name of the printer." maxtype="UPPER" length="20" searchtype="WILDCARD"/>
-            <attrdef attribute="SITEID" title="Site" remarks="The location site Id" sameasobject="SITE" sameasattribute="SITEID" searchtype="WILDCARD" classname="io.sharptree.maximo.app.label.FldSiteID" />
+            <attrdef attribute="SITEID" title="Site" remarks="The location site Id" sameasobject="SITE" sameasattribute="SITEID" searchtype="WILDCARD" classname="io.naviam.maximo.app.label.FldSiteID" />
         </define_table>
 
-        <define_table object="STPRINTLABEL" description="Sharptree non-persistent object for printing labels." classname="io.sharptree.maximo.app.label.virtual.PrintLabelSet" service="STLABEL" type="system" persistent="false">
+        <define_table object="STPRINTLABEL" description="Sharptree non-persistent object for printing labels." classname="io.naviam.maximo.app.label.virtual.PrintLabelSet" service="STLABEL" type="system" persistent="false">
             <attrdef attribute="COUNT" title="Count" remarks="The number of labels to print." maxtype="INTEGER"/>
-            <attrdef attribute="LABEL" title="Label" remarks="The label to print." sameasobject="STLABEL" sameasattribute="LABEL" classname="io.sharptree.maximo.app.label.virtual.FldLabel" />
+            <attrdef attribute="LABEL" title="Label" remarks="The label to print." sameasobject="STLABEL" sameasattribute="LABEL" classname="io.naviam.maximo.app.label.virtual.FldLabel" />
             <attrdef attribute="LOCATION" title="Location" remarks="Location where the label will be printed." sameasobject="LOCATIONS" sameasattribute="LOCATION" />
             <attrdef attribute="PARENT" title="Parent" remarks="The name of the parent object." sameasobject="MAXOBJECT" sameasattribute="OBJECTNAME"/>
             <attrdef attribute="PARENTID" title="Parent Id" remarks="The unique Id for the parent object." maxtype="BIGINT"/>
-            <attrdef attribute="PRINTER" title="Printer" remarks="The name of the printer where the label will be printed." classname="io.sharptree.maximo.app.label.virtual.FldPrinter" sameasobject="STPRINTER" sameasattribute="PRINTER"/>
+            <attrdef attribute="PRINTER" title="Printer" remarks="The name of the printer where the label will be printed." classname="io.naviam.maximo.app.label.virtual.FldPrinter" sameasobject="STPRINTER" sameasattribute="PRINTER"/>
             <attrdef attribute="SITEID" title="Site" remarks="The site identifier." classname="psdi.app.site.FldSiteID" sameasobject="SITE" sameasattribute="SITEID" />
         </define_table>
         
