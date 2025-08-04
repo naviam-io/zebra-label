@@ -15,7 +15,8 @@ function updateBuildXml(){
 
     shell_script_file="${ear_build_xml%.*}.sh"
 
-    # If the ear build script file is not calling the 'psdi.tools.MaximoBuildEarTask then manually update it.
+    # Manually call the 'psdi.tools.MaximoBuildEarTask' for maximo-all.xml, buildmaximojmsconsumer-ear.xml, and buildmaximomea-ear.xml
+    # Because even though these files' shell scripts are supposed to call it, they do not do it correctly.
     if [[ "$ear_build_xml" = *"maximo-all.xml" ]] || [[ "$ear_build_xml" = *"buildmaximojmsconsumer-ear.xml" ]] || [[ "$ear_build_xml" = *"buildmaximomea-ear.xml" ]]; then
       echo "The file $shell_script_file does not contain the psdi.tools.MaximoBuildEarTask, manually running the product task."
       mkdir -p $WLP_BUILD_HOME/tmp
