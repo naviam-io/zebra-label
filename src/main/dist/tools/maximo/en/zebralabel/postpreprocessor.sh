@@ -16,13 +16,13 @@ function updateBuildXml(){
     shell_script_file="${ear_build_xml%.*}.sh"
 
     # If the ear build script file is not calling the 'psdi.tools.MaximoBuildEarTask then manually update it.
-    if ! (grep -q 'psdi.tools.MaximoBuildEarTask' "$shell_script_file"); then
+    if [[ "$ear_build_xml" = *"maximo-all.xml" ]] || [[ "$ear_build_xml" = *"buildmaximojmsconsumer-ear.xml" ]] || [[ "$ear_build_xml" = *"buildmaximomea-ear.xml" ]]; then
       echo "The file $shell_script_file does not contain the psdi.tools.MaximoBuildEarTask, manually running the product task."
       mkdir -p $WLP_BUILD_HOME/tmp
       cp "$ear_build_xml" $WLP_BUILD_HOME/tmp/$MAXIMO_EAR_NAME
       cp -r $PRODUCT_HOME $WLP_BUILD_HOME/tmp
 
-      "$JAVA_HOME"/bin/java -classpath $CLASSPATH psdi.tools.MaximoBuildEarTask -k$WLP_BUILD_HOME/tmp
+      ../../"$JAVA_HOME"/bin/java -classpath $CLASSPATH psdi.tools.MaximoBuildEarTask -k$WLP_BUILD_HOME/tmp
 
       echo "Copying result to $ear_build_xml"
       cp -f $WLP_BUILD_HOME/tmp/$MAXIMO_BUILD_EAR_NAME "$ear_build_xml"
