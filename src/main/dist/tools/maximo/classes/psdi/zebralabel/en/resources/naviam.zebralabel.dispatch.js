@@ -82,7 +82,10 @@ function main() {
         response.addHeader("Connection", "keep-alive");
         // indicate to the client that the cache should not be used.
         response.addHeader("Cache-Control", "no-cache");
-
+        // in case NGINX is used, we need to disable buffering so that the response is sent immediately.
+        response.addHeader("X-Accel-Buffering", "no");
+        // stop the server from buffering the response for compression.
+        response.setHeader("Content-Encoding", "none");
         // flush the buffer to send and commit the headers
         response.flushBuffer();
 

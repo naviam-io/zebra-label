@@ -33,13 +33,17 @@ public class V1000_25 extends AutoUpgradeTemplate {
      * @throws Exception throw if an error occurs while initializing the upgrade template.
      */
     public void init() throws Exception {
-        this.scriptFileName = "V1000_15";
+        this.scriptFileName = "V1000_25";
         super.init();
     }
 
     @Override
     protected void process() throws Exception {
-        AutoScriptUtil.createOrUpdateScript(con, "NAVIAM.ZEBRALABEL.DISPATCH", "psdi/zebralabel/en/resources/naviam.zebralabel.dispatch.js", "Naviam Zebra Label Printing Dispatch", "1.0.0", dbIn);
+        AutoScriptUtil.createOrUpdateScript(con, "NAVIAM.ZEBRALABEL.DISPATCH", "psdi/zebralabel/en/resources/naviam.zebralabel.dispatch.js", "Naviam Zebra Label Printing Dispatch", "1.3.0", dbIn);
+        AutoScriptUtil.createOrUpdateScript(con, "STAUTOSCRIPT.ZEBRALABEL.LABELS", "psdi/zebralabel/en/resources/stautoscript.zebralabel.labels.js", "Barcode Label Definitions", "1.3.0", dbIn);
+        AutoScriptUtil.createOrUpdateScript(con, "STAUTOSCRIPT.ZEBRALABEL.PRINTERS", "psdi/zebralabel/en/resources/stautoscript.zebralabel.printers.js", "Barcode Printers", "1.3.0", dbIn);
+        AutoScriptUtil.createOrUpdateScript(con, "STAUTOSCRIPT.ZEBRALABEL.PRINTLABEL", "psdi/zebralabel/en/resources/stautoscript.zebralabel.printlabel.js", "Print a Barcode Label", "1.3.0", dbIn);
+
         super.process();
     }
 }
