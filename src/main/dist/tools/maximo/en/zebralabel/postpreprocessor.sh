@@ -22,7 +22,7 @@ function updateBuildXml(){
       cp "$ear_build_xml" $WLP_BUILD_HOME/tmp/$MAXIMO_EAR_NAME
       cp -r $PRODUCT_HOME $WLP_BUILD_HOME/tmp
 
-      ../../"$JAVA_HOME"/bin/java -classpath $CLASSPATH psdi.tools.MaximoBuildEarTask -k$WLP_BUILD_HOME/tmp
+      "$JAVA_HOME"/bin/java -classpath $CLASSPATH psdi.tools.MaximoBuildEarTask -k$WLP_BUILD_HOME/tmp
 
       echo "Copying result to $ear_build_xml"
       cp -f $WLP_BUILD_HOME/tmp/$MAXIMO_BUILD_EAR_NAME "$ear_build_xml"
