@@ -39,11 +39,11 @@
                 update maxservice set classname = 'io.naviam' ||  substr(classname, 13) where classname like 'io.sharptree.maximo.app.label%';
             </sql>
             <sql target="sqlserver">
-                update maxobject set classname = 'io.naviam' + substring(classname, 13)  where classname like 'io.sharptree.maximo.app.label%';
-                update maxobjectcfg set classname = 'io.naviam' + substring(classname, 13)  where classname like 'io.sharptree.maximo.app.label%';
-                update maxattribute set classname = 'io.naviam' +  substring(classname, 13)  where classname like 'io.sharptree.maximo.app.label%';
-                update maxattributecfg set classname = 'io.naviam' +  substring(classname, 13)  where classname like 'io.sharptree.maximo.app.label%';
-                update maxservice set classname = 'io.naviam' + substring(classname, 13)  where classname like 'io.sharptree.maximo.app.label%';
+                update maxobject set classname = 'io.naviam' + substring(classname, 13,LEN(classname)-12)  where classname like 'io.sharptree.maximo.app.label%';
+                update maxobjectcfg set classname = 'io.naviam' + substring(classname, 13,LEN(classname)-12)  where classname like 'io.sharptree.maximo.app.label%';
+                update maxattribute set classname = 'io.naviam' +  substring(classname, 13,LEN(classname)-12)  where classname like 'io.sharptree.maximo.app.label%';
+                update maxattributecfg set classname = 'io.naviam' +  substring(classname, 13,LEN(classname)-12)  where classname like 'io.sharptree.maximo.app.label%';
+                update maxservice set classname = 'io.naviam' + substring(classname, 13,LEN(classname)-12)  where classname like 'io.sharptree.maximo.app.label%';
             </sql>
         </freeform>
     </statements>
