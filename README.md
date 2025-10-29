@@ -36,7 +36,7 @@ If checked, uncheck the `System managed` switch for the `Customization` section.
 
 ![System mananged switch](images/mas-deploy-customization-sys-manage.png)
 
-In the `File Address` field enter the URL for the `zebra-label-x.y.z.zip` archive.  This can be hosted on a self-hosted server or from the GitHub release URL, such as `https://github.com/naviam-io/zebra-label/releases/download/public/1.3.0/zebra-label-1.3.0.zip`.  If using a self-hosted site, optional credentials can be provided by entering the username and password in the following format.
+In the `File Address` field enter the URL for the `zebra-label-x.y.z.zip` archive.  This can be hosted on a self-hosted server or from the GitHub release URL, such as `https://github.com/naviam-io/zebra-label/releases/download/public/1.3.1/zebra-label-1.3.1.zip`.  If using a self-hosted site, optional credentials can be provided by entering the username and password in the following format.
 ```properties
 user=your user name
 password=your password

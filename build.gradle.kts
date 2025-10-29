@@ -9,13 +9,13 @@ val mavenUserName: String by project
 val mavenPassword: String by project
 
 group = "io.naviam"
-version = "1.3.0"
+version = "1.3.1"
 
 val vendor = "Naviam"
 val product = "zebra-label"
 val distro = "zebra-label"
 
-project.version = "1.3.0"
+project.version = "1.3.1"
 
 tasks.compileJava {
     sourceCompatibility = "1.8"
